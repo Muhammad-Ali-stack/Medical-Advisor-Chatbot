@@ -1,0 +1,31 @@
+# Core framework
+streamlit>=1.37.0
+
+# LangChain modular ecosystem
+langchain>=0.3.3
+langchain-core>=0.3.12
+langchain-community>=0.3.2
+langchain-text-splitters>=0.3.0
+langchain-openai>=0.1.14
+langchain-ollama>=0.1.2
+
+# Vector store
+faiss-cpu>=1.8.0
+
+# PDF handling
+pypdf>=4.2.0
+pdfminer.six>=20231228
+
+# Utility libraries
+tqdm>=4.66.0
+numpy>=1.26.0
+pandas>=2.2.0
+
+# Environment management
+python-dotenv>=1.0.1
+
+# Optional: if you plan to load or manipulate documents
+unstructured>=0.13.0
+
+# For local LLM (if using Ollama fallback)
+requests>=2.31.0

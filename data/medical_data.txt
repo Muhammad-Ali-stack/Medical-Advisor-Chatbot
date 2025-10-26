@@ -1,0 +1,29 @@
+Fever:
+Fever is a temporary rise in body temperature. It often indicates that the body is fighting an infection such as influenza, COVID-19, or bacterial infections. Common causes include viral or bacterial infections, heat exhaustion, and inflammatory diseases.
+
+High Blood Pressure (Hypertension):
+Hypertension occurs when the force of the blood against artery walls is consistently too high. It may be asymptomatic or cause headaches, dizziness, chest pain, and fatigue. Chronic hypertension can lead to heart disease, stroke, or kidney damage.
+
+Cough:
+Coughing helps clear mucus and irritants from the airways. Persistent cough may indicate infections (bronchitis, pneumonia), asthma, or gastroesophageal reflux disease (GERD).
+
+Shortness of Breath:
+Also known as dyspnea, it may be caused by respiratory infections, asthma, heart failure, or anxiety. Acute shortness of breath requires medical evaluation to rule out cardiac or pulmonary emergencies.
+
+Chest Pain:
+Can result from heart attack, angina, anxiety, muscle strain, or GERD. If associated with shortness of breath or sweating, seek emergency care.
+
+Headache:
+Can arise from tension, migraine, sinus infection, dehydration, or high blood pressure. Persistent headaches need neurological evaluation.
+
+Abdominal Pain:
+Common causes include gastritis, ulcers, appendicitis, gallstones, or menstrual cramps. Location and intensity guide diagnosis.
+
+Fatigue:
+A common symptom linked to anemia, thyroid disorders, depression, or chronic infections. Persistent fatigue requires lab evaluation.
+
+Sore Throat:
+Usually viral (common cold, flu) but can also be bacterial (strep throat). Accompanied by fever and swollen lymph nodes in bacterial cases.
+
+High Fever and High Blood Pressure Together:
+This combination may indicate severe infection, sepsis, thyroid storm, or hypertensive crisis. Immediate medical evaluation is recommended.
