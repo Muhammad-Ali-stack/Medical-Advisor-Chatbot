@@ -2,6 +2,7 @@ import streamlit as st
 from tempfile import NamedTemporaryFile
 from typing import List
 import os
+import re
 
 # LangChain modular imports
 from langchain_openai import ChatOpenAI
@@ -35,6 +36,18 @@ def is_identity_question(q: str) -> bool:
         "who is your creator", "your developer", "who is your owner",
     ]
     return any(kw in q.lower() for kw in keywords)
+
+# --- Guardrail: Detect if query is medical ---
+def is_medical_query(q: str) -> bool:
+    medical_keywords = [
+        "symptom", "disease", "fever", "pain", "infection", "flu", "virus", "bacteria",
+        "medicine", "treatment", "diagnosis", "doctor", "cough", "headache", "nausea",
+        "breathing", "chest", "injury", "blood", "allergy", "diabetes", "cancer",
+        "asthma", "migraine", "health", "skin", "rash", "hospital", "bp", "heart",
+        "eye", "ear", "stomach", "throat", "vomit", "swelling", "painful"
+    ]
+    q_lower = q.lower()
+    return any(re.search(rf"\b{kw}\b", q_lower) for kw in medical_keywords)
 
 # --- Load Medical Vectorstore ---
 try:
@@ -103,7 +116,7 @@ if uploaded_file:
         st.error(f"Error processing PDF: {e}")
         is_pdf_uploaded = False
 
-# --- Combined Document Retrieval (debug version) ---
+# --- Combined Document Retrieval ---
 def get_combined_docs(query: str) -> List[Document]:
     docs = []
     try:
@@ -119,7 +132,6 @@ def get_combined_docs(query: str) -> List[Document]:
                 docs.extend(pdf_docs)
             elif pdf_docs:
                 docs.append(pdf_docs)
-
     except Exception as e:
         st.warning(f"Error during document retrieval: {e}")
         return []
@@ -129,11 +141,10 @@ def get_combined_docs(query: str) -> List[Document]:
     unique_docs = []
     for doc in docs:
         content = getattr(doc, "page_content", None) or getattr(doc, "content", None) or ""
-        if not content:
-            continue
-        if content not in seen:
+        if content and content not in seen:
             seen.add(content)
             unique_docs.append(doc)
+    return unique_docs
 
 # --- Medical Diagnosis Function ---
 def get_medical_diagnosis(query: str, pdf_used: bool) -> str:
@@ -142,11 +153,7 @@ def get_medical_diagnosis(query: str, pdf_used: bool) -> str:
 
         if not relevant_docs:
             fallback_text = load_medical_file_excerpt(max_chars=3000)
-            if fallback_text:
-                context = fallback_text
-
-            else:
-                context = ""
+            context = fallback_text if fallback_text else ""
         else:
             context = "\n\n".join([doc.page_content for doc in relevant_docs if getattr(doc, "page_content", None)])
 
@@ -171,7 +178,6 @@ def get_medical_diagnosis(query: str, pdf_used: bool) -> str:
         )
 
         prompt = PromptTemplate.from_template(prompt_text)
-
         chain = (
             RunnableMap({"context": RunnablePassthrough(), "question": RunnablePassthrough()})
             | prompt
@@ -181,7 +187,6 @@ def get_medical_diagnosis(query: str, pdf_used: bool) -> str:
 
         response = chain.invoke({"context": context, "question": query})
         return response or "No response from the model."
-
     except Exception as e:
         st.error(f"Internal Chain Error: {str(e)}")
         return "I encountered an internal error while generating the advice."
@@ -192,6 +197,8 @@ query = st.text_input("Describe your symptoms (e.g., 'I have a high fever and sh
 if query:
     if is_identity_question(query):
         st.success("I was developed by Muhammad Ali.")
+    elif not is_medical_query(query):
+        st.warning("⚠️ This assistant only answers **medical-related** questions. Please ask about symptoms, diseases, or treatments.")
     else:
         with st.spinner("Analyzing your symptoms and consulting the medical knowledge base..."):
             try:

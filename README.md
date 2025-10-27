@@ -20,3 +20,12 @@ Built-in safety mechanisms ensure the chatbot **does not provide medical treatme
 -  **Safety Guardrails** — only provides diagnostic reasoning, not treatment
 
 
+### Installation  
+1. Clone the repo:  
+   ```bash
+   git clone https://github.com/Muhammad-Ali-stack/Medical-Advisor-Chatbot.git
+   cd Medical-Advisor-Chatbot
+2. pip install -r requirements.txt
+3. In the secrets.toml file in .streamlit folder paste groq api key.
+4. python ingest.py
+5. python app.py
