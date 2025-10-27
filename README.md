@@ -19,6 +19,7 @@ Built-in safety mechanisms ensure the chatbot **does not provide medical treatme
 -  **Automatic fallback** from Groq API to local Ollama model  
 -  **Safety Guardrails** — only provides diagnostic reasoning, not treatment
 
+---
 
 ### Installation  
 1. Clone the repo:  
